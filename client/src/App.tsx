@@ -60,7 +60,7 @@ function App() {
 
       // Save User To MongoDB
       if (profileObj) {
-        const response = await fetch('https://fullstack-mern-app-yariga.onrender.com/api/v1/', {
+        const response = await fetch('https://fullstack-mern-app-yariga.onrender.com/api/v1/users', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
