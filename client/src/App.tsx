@@ -63,11 +63,11 @@ function App() {
         const response = await fetch('https://fullstack-mern-app-yariga.onrender.com', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
+          body: {
             name: profileObj.name,
             email: profileObj.email,
             avatar: profileObj.picture,
-          }),
+          },
         })
 
         const data = await response.json();
