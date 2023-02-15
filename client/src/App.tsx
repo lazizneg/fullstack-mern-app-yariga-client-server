@@ -60,7 +60,7 @@ function App() {
 
       // Save User To MongoDB
       if (profileObj) {
-        const response = await fetch('https://fullstack-mern-app-yariga.onrender.com', {
+        const response = await fetch('http://fullstack-mern-app-yariga.onrender.com', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -128,7 +128,7 @@ function App() {
       <GlobalStyles styles={{ html: { WebkitFontSmoothing: "auto" } }} />
       <RefineSnackbarProvider>
         <Refine
-          dataProvider={dataProvider("https://fullstack-mern-app-yariga.onrender.com")}
+          dataProvider={dataProvider("http://fullstack-mern-app-yariga.onrender.com")}
           notificationProvider={notificationProvider}
           ReadyPage={ReadyPage}
           catchAll={<ErrorComponent />}
