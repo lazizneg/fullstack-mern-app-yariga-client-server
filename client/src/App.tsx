@@ -60,27 +60,29 @@ function App() {
 
       // Save User To MongoDB
       if (profileObj) {
-        const response = await fetch('https://fullstack-mern-app-yariga.onrender.com', {
+        const response = await fetch('https://fullstack-mern-app-yariga.onrender.com/api/v1/users', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: {
+          body: JSON.stringify({
             name: profileObj.name,
             email: profileObj.email,
             avatar: profileObj.picture,
-          },
+          }),
         })
 
         const data = await response.json();
         if (response.status === 200) {
-          localStorage.setItem(
-            'user',
-            JSON.stringify({
-              ...profileObj,
-              avatar: profileObj.picture,
-              userid: data._id,
-            }),
-          );
+          console.log("SUCCESS", data)
+          // localStorage.setItem(
+          //   'user',
+          //   JSON.stringify({
+          //     ...profileObj,
+          //     avatar: profileObj.picture,
+          //     userid: data._id,
+          //   }),
+          // );
         } else {
+          console.log("ERROR")
           return Promise.reject();
         }
       }
