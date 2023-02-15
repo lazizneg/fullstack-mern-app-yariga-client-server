@@ -73,14 +73,14 @@ function App() {
         const data = await response.json();
         if (response.status === 200) {
           console.log("SUCCESS", data)
-          // localStorage.setItem(
-          //   'user',
-          //   JSON.stringify({
-          //     ...profileObj,
-          //     avatar: profileObj.picture,
-          //     userid: data._id,
-          //   }),
-          // );
+          localStorage.setItem(
+            'user',
+            JSON.stringify({
+              ...profileObj,
+              avatar: profileObj.picture,
+              userid: data._id,
+            }),
+          );
         } else {
           console.log("ERROR")
           return Promise.reject();
