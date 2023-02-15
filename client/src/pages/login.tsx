@@ -3,7 +3,7 @@ import { useLogin } from "@pankod/refine-core";
 import { Container, Box } from "@pankod/refine-mui";
 
 import { yariga } from '../assets';
-
+import { parseJwt } from 'utils/parse-jwt';
 import { CredentialResponse } from "../interfaces/google";
 
 export const Login: React.FC = () => {
@@ -24,6 +24,22 @@ export const Login: React.FC = () => {
           callback: async (res: CredentialResponse) => {
             if (res.credential) {
               login(res);
+
+              //CHANGE: add user to MongoDB
+              const profileObj = res.credential ? parseJwt(res.credential) : null;
+              if (profileObj) {
+                const { data } = await create({
+                  resource: 'users',
+                  values: {
+                    name: profileObj.name,
+                    email: profileObj.email,
+                    avatar: profileObj.picture,
+                  },
+                });
+
+                console.log('data', data);
+              }
+
             }
           },
         });
@@ -74,3 +90,7 @@ export const Login: React.FC = () => {
     </Box>
   );
 };
+function create(arg0: { resource: string; values: { name: string; email: string; avatar: string; }; }): { data: any; } | PromiseLike<{ data: any; }> {
+  throw new Error("Function not implemented.");
+}
+
