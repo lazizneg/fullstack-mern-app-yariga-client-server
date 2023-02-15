@@ -5,7 +5,8 @@ import {
   PieChart,
   PropertyReferrals,
   TotalRevenue,
-  PropertyCard
+  PropertyCard,
+  TopAgent
 } from 'components';
 
 const Home = () => {
@@ -67,6 +68,7 @@ const Home = () => {
       </Stack>
 
       <Stack mt="25px" width="100%" flexWrap="wrap" direction="row" gap={4}> 
+        <TopAgent />
 
         <Box
           flex={1}

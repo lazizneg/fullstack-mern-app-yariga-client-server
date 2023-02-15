@@ -1,24 +1,25 @@
-import React, { useContext } from "react";
-import { useGetIdentity } from "@pankod/refine-core";
+import React, { useContext } from 'react';
+import { useGetIdentity } from '@pankod/refine-core';
 import {
   AppBar,
-  IconButton,
+  // IconButton,
+  Avatar,
   Stack,
   Toolbar,
   Typography,
-  Avatar,
-} from "@pankod/refine-mui";
+} from '@pankod/refine-mui';
+// import { DarkModeOutlined, LightModeOutlined } from '@mui/icons-material';
 
-//import { DarkModeOutlined, LightModeOutlined } from "@mui/icons-material";
-//import { ColorModeContext } from "contexts";
+// import { ColorModeContext } from 'contexts';
 
 export const Header: React.FC = () => {
-  //const { mode, setMode } = useContext(ColorModeContext);
+  // const { mode, setMode } = useContext(ColorModeContext);
 
   const { data: user } = useGetIdentity();
-  const shouldRenderHeader = true; // since we are using the dark/light toggle; we don't need to check if user is logged in or not.
+  const showUserInfo = user && (user.name || user.avatar);
 
-  return shouldRenderHeader ? (
+  return (
+    // CHANGE: header color & elevation
     <AppBar color="default" position="sticky" elevation={0} sx={{ background: '#FCFCFC' }}>
       <Toolbar>
         <Stack
@@ -32,23 +33,23 @@ export const Header: React.FC = () => {
               setMode();
             }}
           >
-            {mode === "dark" ? <LightModeOutlined /> : <DarkModeOutlined />}
+            {mode === 'dark' ? <LightModeOutlined /> : <DarkModeOutlined />}
           </IconButton> */}
-          <Stack
-            direction="row"
-            gap="16px"
-            alignItems="center"
-            justifyContent="center"
-          >
-            {user?.name ? (
-              <Typography variant="subtitle2">{user?.name}</Typography>
-            ) : null}
-            {user?.avatar ? (
-              <Avatar src={user?.avatar} alt={user?.name} />
-            ) : null}
-          </Stack>
+          {showUserInfo && (
+            <Stack direction="row" gap="12px" alignItems="center" justifyContent="center">
+              {user.avatar && <Avatar src={user?.avatar} alt={user?.name} />}
+
+              {user.name && (
+                // CHANGE: Display user info on the header
+                <Stack direction="column">
+                  <Typography sx={{ fontSize: 14, fontWeight: 600, color: '#11142D' }}>{user?.name}</Typography>
+                  <Typography sx={{ fontSize: 12, color: '#808191' }}>{user?.email}</Typography>
+                </Stack>
+              )}
+            </Stack>
+          )}
         </Stack>
       </Toolbar>
     </AppBar>
-  ) : null;
+  );
 };
